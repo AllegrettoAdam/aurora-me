@@ -1,0 +1,12 @@
+Date: 29 Oct 2024
+Meeting 1
+
+Decisions:
+  - None
+
+Alternative Actions/Options Discussed:
+  - Create two versions of the finder wireframe: one with an interactive map
+    and one without. This will give us options based on feasability.
+
+Follow-up items:
+  - None
