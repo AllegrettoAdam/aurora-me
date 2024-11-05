@@ -1,11 +1,16 @@
-CREATE TABLE users (
-    id INT PRIMARY KEY,
-    username VARCHAR(32) NOT NULL,
-    password VARCHAR(32) NOT NULL,
-)
+CREATE TABLE IF NOT EXISTS users (
+    id SERIAL PRIMARY KEY,
+    img VARCHAR(1000),
+    username VARCHAR(16) NOT NULL,
+    password VARCHAR(32) NOT NULL
+);
 
 CREATE TABLE posts (
-    id BIGINT PRIMARY KEY,
-    text VARCHAR
-    
-)
+    id SERIAL PRIMARY KEY,
+    img VARCHAR(1000),
+    text VARCHAR(500),
+    user_id INT
+);
+
+ALTER TABLE posts
+ADD CONSTRAINT user_id FOREIGN KEY (user_id) REFERENCES users (id);
