@@ -1,0 +1,12 @@
+Date: 5 Nov 2024
+Meeting 2
+
+Decisions:
+  - Go Page-by-Page in developing Front-End so we can begin working on Back-End
+    - Each of us is assigning ourselves a page to create
+
+Alternative Actions/Options Discussed:
+  - Nothing major.
+
+Follow-up items:
+  - Look into NextJS framework and plan to implement pending TA approval.
