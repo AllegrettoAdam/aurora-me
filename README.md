@@ -6,5 +6,8 @@ Contributors: Ramsey Vincent, Abraham Yanez Escobar, Ulises Cortez, Adam Eliott,
 
 Tech Stack: TBD
 
+Required APIs: 
+Auroras: https://publicapis.io/auroras-live-science-api
+
 SQL Model:
 ![image](https://github.com/user-attachments/assets/ce36e1e8-dee6-4145-b972-354f07f83b98)
