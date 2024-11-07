@@ -7,7 +7,7 @@ Contributors: Ramsey Vincent, Abraham Yanez Escobar, Ulises Cortez, Adam Eliott,
 Responsibilities:
 Ramsey:
 Abraham:
-Ulises:
+Ulises: Register and Login Pages
 Adam:
 Aur: General help
 
