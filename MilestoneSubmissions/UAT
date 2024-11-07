@@ -1,0 +1,67 @@
+Feature 1: User Registration and Login
+
+Test Case 1: Successful User Registration
+
+User A does:
+
+Navigate to the Registration page.
+Enter a username: userA.
+Enter an email: userA@example.com.
+Enter a password: SecurePass123.
+Click the Register button.
+Expected Result:
+
+User A is registered successfully.
+A confirmation message appears: "Registration successful. Please check your email to verify your account."
+A verification email is sent to userA@example.com.
+
+Invalid Result:
+
+If no confirmation message appears or no email is sent.
+If User A cannot log in after registration.
+Test Case 2: Registration with Missing Information
+User A does:
+
+Navigate to the Registration page.
+Leave the email field empty.
+Enter a username and password.
+Click the Register button.
+Expected Result:
+
+An error message appears: "Email is required."
+Invalid Result:
+
+If registration proceeds without an email.
+If no error message is displayed.
+
+Test Case 3: Successful User Login
+
+User A does:
+
+Navigate to the Login page.
+Enter the email: userA@example.com.
+Enter the password: SecurePass123.
+Click the Login button.
+Expected Result:
+
+User A is logged in successfully.
+Redirected to the dashboard with a welcome message: "Welcome, userA!"
+Invalid Result:
+
+If User A cannot log in.
+If an error message is displayed despite correct credentials.
+
+Test Case 4: Login with Incorrect Password
+User A does:
+
+Navigate to the Login page.
+Enter the email: userA@example.com.
+Enter an incorrect password: WrongPass.
+Click the Login button.
+Expected Result:
+
+An error message appears: "Incorrect email or password."
+Invalid Result:
+
+If User A is logged in with the wrong password.
+If no error message is displayed.
