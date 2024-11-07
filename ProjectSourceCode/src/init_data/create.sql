@@ -10,7 +10,7 @@ CREATE TABLE posts (
     id SERIAL PRIMARY KEY,
     img VARCHAR(1000),
     text VARCHAR(500),
-    user_id BIGINT
+    user_id BIGINT NOT NULL
 );
 
 ALTER TABLE posts
