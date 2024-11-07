@@ -9,7 +9,7 @@ CREATE TABLE posts (
     id SERIAL PRIMARY KEY,
     img VARCHAR(1000),
     text VARCHAR(500),
-    user_id INT
+    user_id BIGINT
 );
 
 ALTER TABLE posts
