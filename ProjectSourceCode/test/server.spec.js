@@ -46,6 +46,10 @@ describe('Testing register API', () => {
           .request(server)
           .post('/register')
           .send({id: '1', img: '', username: 10, email: 10, password: 10})
+          .end((err, res) => {
+            expect(res).to.have.status(400);
+            expect(res.body.message).to.equals('Invalid input');
+          })
     })
 })
 
