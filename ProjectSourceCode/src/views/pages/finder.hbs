@@ -1,0 +1,27 @@
+{{!-- TODO: Figure out how we access and store API data --}}
+{{!-- TODO: Do we want to translate coordinates into more specific location info? --}}
+<h2>Aurora Finder</h2>
+<form action="/find" method="POST">
+    <label for="location_input" class="form-label">Enter Location Here</label>
+    <input type="text" class="form-control" id="location_input" name="location">
+    <button id="submit_button" class="btn btn-primary" type="submit">
+        Find Aurora
+    </button>
+</form>
+
+{{!-- Note: The Variable Partials are just a placeholder till we figure out API integration --}}
+
+<div id="aurora_direct">
+    <h4>Your Chance of Seeing Aurora: {{aurora_direct-probability}}</h4>
+</div>
+
+<div id="aurora-nearby">
+    {{!-- API returns 'the highest probability of seeing an aurora within 9 degrees (approx. 1000km) of your location'
+    or about 621 milies--}}
+    <h4>Your Chance of Seeing Aurora Within 600 miles: {{aurora_nearby-probability}}</h4>
+</div>
+
+<div id="aurora-best">
+    {{!-- Note: I'm not sure if the API returns data for what this chance is. --}}
+    <h4>Best Chance of Seeing Aurora: {{aurora_best-location}}</h4>
+</div>
