@@ -209,3 +209,15 @@ Invalid Result:
 
 Like or comment does not register.
 User D encounters errors while interacting.
+
+Test Environment
+Localhost Testing:
+Application running on localhost:3000
+Test data stored locally
+Simulated API responses where necessary
+This test plan includes step-by-step user actions, test data, expected results, and invalid results for each feature to ensure comprehensive testing of the application.
+
+Summary
+Feature 1: Tested user registration and login with specific credentials to verify authentication processes.
+Feature 2: Ensured the aurora map displays accurate, real-time data and handles errors gracefully.
+Feature 3: Verified that users can upload valid images, prevented invalid file uploads, and allowed user interactions with photos.
