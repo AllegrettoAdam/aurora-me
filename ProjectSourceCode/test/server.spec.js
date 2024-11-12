@@ -33,7 +33,7 @@ describe('Testing register API', () => {
     it('positive : /register', done => {
         chai
           .request(server)
-          .post('register')
+          .post('/register')
           .send({id: 1, img: '', username: 'JDPower2077', email: 'john.doe27@gmail.com' ,password: 'fAc3l3$SbA$7aRd_27'})
           .end((err, res) => {
             expect(res).to.have.status(200);
@@ -49,10 +49,10 @@ describe('Testing register API', () => {
           .end((err, res) => {
             expect(res).to.have.status(400);
             expect(res.body.message).to.equals('Invalid input');
+            done();
           })
     })
 })
-
-desc
+//desc
 
 // ********************************************************************************
