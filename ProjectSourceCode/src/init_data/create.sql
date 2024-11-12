@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS users (
     img VARCHAR(1000),
     username VARCHAR(16) NOT NULL,
     email VARCHAR(40) NOT NUll,
-    password VARCHAR(32) NOT NULL
+    password VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE posts (
