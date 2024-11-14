@@ -95,6 +95,9 @@ app.get('/profile', (req, res) => {
     res.render('pages/profile');
 });
 
+app.get('/social', (req, res) => {
+    res.render('pages/profile');
+});
 
 app.post('/register', async (req, res) => {
     const username = req.body.username;
