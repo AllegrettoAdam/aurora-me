@@ -1,0 +1,40 @@
+<style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .profile img {
+            width: 40px;
+            height: 40px;
+            margin-right: 100px;
+        }
+        .post img {
+            width: 100%;
+        }
+        .footer {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+        }
+	</style>
+	<body>
+    
+    <div class="container">
+    {{#each posts}}
+        <div class="profile">
+            <!-- Need to learn how to properly do this and access the post's user for their profile image -->
+            <img src="https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg" alt="Profile Picture" alt="Profile Picture"> 
+           
+        </div>
+        <div class="post">
+            <img src={{this.img}} alt="Post Image">
+        </div>
+    </div>
+    {{/each}}
+    <div class="footer">
+        <div>Finder</div>
+        <div>Profile Picture Temp</div>
+    </div>
+    
+    </body>
+
