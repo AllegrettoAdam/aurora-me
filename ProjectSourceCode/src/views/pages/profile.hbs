@@ -1,24 +1,25 @@
+<!-- profile page should not be accessible unless the user is signed in to their account -->
 <div class="container" style="width: 100%">
     <div class="row justify-content-between mx-2 py-1">
         <div class="col">
             <h1>Profile</h1>
         </div>
         <div class="col-1">
-            <a href="#" id="Edit Profile" class="py-2">Edit Profile</a>
         </div>
     </div>
     <hr style="color:rgb(141, 141, 141); height: 2px; background-color:rgb(141, 141, 141);">
     <div class="row justify-content-start mx-2">
         <div id="profile_picture" class="col-1">Picture<br>Placeholder</div>
         <div id="username" class="col">
-            <h2 style="margin-bottom: 1%;">username</h2>
+            <!-- {{username}} partial should print the username of the user -->
+            <h2 style="margin-bottom: 1%;">{{username}}</h2>
         </div>
     </div>
-    <div class="row" style="background-color: rgb(134, 134, 134);">
-        <div class="col">
-            <h3>Images</h3>
+    <div class="row" style="background-color: rgb(134, 134, 134); margin-top: 1%;">
+        <div class="col py-2">
+            <h3>Photos</h3>
         </div>
     </div>
     <!--TODO: Add dynamic image display of photos from the posts they made -->
-    <!-- Should pull images from the posts table of the database that are tied to the specific user-->
+    <!-- for each post made by the user, display the photo attached to it, 4 per row -->
 </div>
