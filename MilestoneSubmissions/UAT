@@ -1,0 +1,223 @@
+Feature 1: User Registration and Login
+Test Case 1: Successful User Registration
+User A does:
+
+Navigate to the Registration page.
+Enter a username: userA.
+Enter an email: userA@example.com.
+Enter a password: SecurePass123.
+Click the Register button.
+Test Data:
+
+Username: userA
+Email: userA@example.com
+Password: SecurePass123
+Expected Result:
+
+User A is registered successfully.
+A confirmation message appears: "Registration successful. Please check your email to verify your account."
+A verification email is sent to userA@example.com.
+Invalid Result:
+
+No confirmation message appears.
+No verification email is sent.
+User A cannot log in after registration.
+Test Case 2: Registration with Missing Information
+User A does:
+
+Navigate to the Registration page.
+Leave the email field empty.
+Enter a username: userA2.
+Enter a password: SecurePass456.
+Click the Register button.
+Test Data:
+
+Username: userA2
+Email: (Left empty)
+Password: SecurePass456
+Expected Result:
+
+An error message appears: "Email is required."
+Invalid Result:
+
+Registration proceeds without an email.
+No error message is displayed.
+Test Case 3: Successful User Login
+User A does:
+
+Navigate to the Login page.
+Enter the email: userA@example.com.
+Enter the password: SecurePass123.
+Click the Login button.
+Test Data:
+
+Email: userA@example.com
+Password: SecurePass123
+Expected Result:
+
+User A is logged in successfully.
+Redirected to the dashboard with a welcome message: "Welcome, userA!"
+Invalid Result:
+
+User A cannot log in.
+An error message is displayed despite correct credentials.
+Test Case 4: Login with Incorrect Password
+User A does:
+
+Navigate to the Login page.
+Enter the email: userA@example.com.
+Enter an incorrect password: WrongPass.
+Click the Login button.
+Test Data:
+
+Email: userA@example.com
+Password: WrongPass
+Expected Result:
+
+An error message appears: "Incorrect email or password."
+Invalid Result:
+
+User A is logged in with the wrong password.
+No error message is displayed.
+Feature 2: Aurora Map Display
+Test Case 1: Viewing the Real-Time Aurora Map
+User B does:
+
+Log in with:
+Email: userB@example.com
+Password: Password123
+Navigate to the Aurora Map page.
+Test Data:
+
+User Credentials:
+Email: userB@example.com
+Password: Password123
+Aurora Data Example:
+Latitude: 65.0
+Longitude: -147.5
+Activity Level: KP5 (moderate activity)
+Expected Result:
+
+The map displays current aurora activity accurately.
+Aurora zones are highlighted based on activity levels.
+Invalid Result:
+
+The map fails to load.
+Aurora data is missing or incorrect.
+Test Case 2: Refreshing Aurora Data
+User B does:
+
+On the Aurora Map page, click the Refresh button.
+Test Data:
+
+Updated Aurora Data:
+New Activity Level: KP6 (high activity)
+Updated at: Current timestamp
+Expected Result:
+
+The map updates to show the latest aurora activity.
+A message displays: "Data refreshed at [current time]."
+Invalid Result:
+
+Data does not refresh.
+No indication that the refresh occurred.
+Test Case 3: Handling Data Fetch Errors
+User B does:
+
+Disable the internet connection.
+Attempt to access the Aurora Map page.
+Test Data:
+
+Network Status: Offline
+Expected Result:
+
+An error message appears: "Unable to load aurora data. Please check your internet connection."
+Invalid Result:
+
+Application crashes or freezes.
+No error message is displayed.
+Feature 3: Photo Upload and Sharing
+Test Case 1: Uploading a Valid Photo
+User C does:
+
+Log in with:
+Email: userC@example.com
+Password: PhotoPass789
+Navigate to the Upload Photo page.
+Click Choose File and select aurora_night.jpg (a valid image file).
+Add a caption: "Beautiful aurora display tonight!"
+Click the Upload button.
+Test Data:
+
+Image File: aurora_night.jpg
+File Size: 2 MB
+Dimensions: 1920 x 1080
+Format: JPEG
+Caption: "Beautiful aurora display tonight!"
+Expected Result:
+
+Photo uploads successfully.
+Confirmation message: "Your photo has been uploaded."
+Photo appears in User C's gallery and the public feed.
+Invalid Result:
+
+Photo does not appear after upload.
+No confirmation message is shown.
+Test Case 2: Attempting to Upload an Invalid File
+User C does:
+
+Navigate to the Upload Photo page.
+Click Choose File and select script.js (a non-image file).
+Click the Upload button.
+Test Data:
+
+File: script.js
+File Size: 15 KB
+File Type: JavaScript File
+Expected Result:
+
+An error message appears: "Invalid file type. Please upload an image file (JPEG, PNG, GIF)."
+Invalid Result:
+
+The file uploads despite being invalid.
+Application behaves unexpectedly or crashes.
+Test Case 3: Viewing and Interacting with a Photo
+User D does:
+
+Log in with:
+Email: userD@example.com
+Password: Interact456
+Navigate to the Public Feed.
+Locate User C's uploaded photo titled "Beautiful aurora display tonight!"
+Click on the photo to view it in full size.
+Click the Like button.
+Add a comment: "Absolutely breathtaking!"
+Test Data:
+
+User Credentials:
+Email: userD@example.com
+Password: Interact456
+Photo Details:
+Uploaded by: User C
+Photo ID: photo123
+Expected Result:
+
+Like count increases by one.
+Comment is added below the photo.
+User C receives a notification about the like and comment.
+Invalid Result:
+
+Like or comment does not register.
+User D encounters errors while interacting.
+
+Test Environment
+Localhost Testing:
+Application running on localhost:3000
+Test data stored locally
+Simulated API responses where necessary
+This test plan includes step-by-step user actions, test data, expected results, and invalid results for each feature to ensure comprehensive testing of the application.
+
+Summary
+Feature 1: Tested user registration and login with specific credentials to verify authentication processes.
+Feature 2: Ensured the aurora map displays accurate, real-time data and handles errors gracefully.
+Feature 3: Verified that users can upload valid images, prevented invalid file uploads, and allowed user interactions with photos.

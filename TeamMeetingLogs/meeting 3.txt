@@ -1,0 +1,15 @@
+Update for meeting 11/12/24
+
+Abraham - Made template for social page
+Adam - Initial functionality of the finder page
+Ramsey- SQL database done
+Ulises - Register API routes, edited users' table, fixed register API and test cases
+
+By next time we meet:
+Abraham - Merge his code, test it, and fix test cases
+Adam - Ramsey full functionality of the finder page
+Ramsey - overview SQL database, profile page
+Ulises: finish the login API routes
+
+BY next time, we hope to have:
+A functiong MVP of the app, doesn't have to look good or anythign but just basic functionality.
