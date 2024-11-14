@@ -130,6 +130,27 @@ app.post('/register', async (req, res) => {
     // });
 });
 
+async function getAuroraData(lat, long) {
+    const apiUrl = `http://api.auroras.live/v1/?type=all&lat=${lat}&long=${long}&forecast=false&threeday=false`;
+    try {
+        const response = await axios.get(apiUrl);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching aurora data:', error);
+        throw error;
+    }
+}
+
+
+app.get('/aurora', async (req, res) => {
+    try {
+        const auroraData = await getAuroraData(40.7813913, -73.976902);
+        //res.render('pages/aurora', { auroraData });
+        console.log(auroraData);
+    } catch (error) {
+        res.status(500).send('Error retrieving aurora data');
+    }
+});
 
 
 // WORKING ON THESE ROUTES ->
