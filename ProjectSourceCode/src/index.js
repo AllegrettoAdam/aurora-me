@@ -80,16 +80,13 @@ app.get('/welcome', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-    res.redirect('/register');
+    res.redirect('/login');
 });
 
 app.get('/register', (req, res) => {
     res.render('pages/register');
 });
 
-app.get('/finder', (req, res) => {
-    res.render('pages/finder');
-});
 
 app.get('/profile', (req, res) => {
     res.render('pages/profile');
@@ -99,6 +96,7 @@ app.get('/social', (req, res) => {
     res.render('pages/profile');
 });
 
+
 app.post('/register', async (req, res) => {
     const username = req.body.username;
     const email = req.body.email;
@@ -107,7 +105,6 @@ app.post('/register', async (req, res) => {
     if (typeof username !== 'string' || typeof email !== 'string' || typeof password !== 'string') {
         return res.status(400).json({ message: "Invalid input" })
     }
-
     try {
 
         const hash = await bcrypt.hash(password, 10);
@@ -116,18 +113,12 @@ app.post('/register', async (req, res) => {
         const values = [username, email, hash];
 
         await db.none(query, values);
-        //return res.redirect(/register');
-        return res.status(200).json({ message: 'Success' })
+        return res.status(200).json(res.redirect('/login'));
     }
     catch (error) {
         console.error('Database error: ', error);
         return res.redirect('/register');
     }
-
-    //.then(() => res.redirect('/login')) 
-    // .catch(error => {
-    //     res.redirect('/register'); 
-    // });
 });
 
 async function getAuroraData(lat, long) {
@@ -152,42 +143,56 @@ app.get('/aurora', async (req, res) => {
     }
 });
 
+app.get('/login', (req, res) => {
+    res.render('pages/login');
+});
 
-// WORKING ON THESE ROUTES ->
-// app.get('/login', (req, res) => {
-//     res.render('pages/login');
-// });
 
-// app.post('/login', (req, res) => {
-//     const username = req.body.username;
-//     const password = req.body.password;
-//     const query = 'SELECT * FROM users WHERE username = $1 LIMIT 1';
-//     const values = [username];
+app.post('/login', (req, res) => {
+    const username = req.body.username;
+    const password = req.body.password;
+    const query = 'SELECT * FROM users WHERE username = $1 LIMIT 1';
+    const values = [username];
 
-//     db.one(query, values)
-//       .then(data => {
-//         bcrypt.compare(password, data.password).then(match => {
-//           if (!match) {
-//             return res.render('pages/login', { message: 'Incorrect username or password.' });
-//           }
+    db.one(query, values)
+      .then(data => {
+        bcrypt.compare(password, data.password).then(match => {
+          if (!match) {
+            return res.render('pages/login', { message: 'Incorrect username or password.' });
+          }
 
-//           const user = {
-//             user_id: data.user_id,
-//             username: data.username,
-//           };
+          const user = {
+            user_id: data.user_id,
+            username: data.username,
+          };
 
-//           req.session.user = user;
-//           req.session.save();
+          req.session.user = user;
+          req.session.save();
 
-//           res.redirect('/discover');
-//         });
-//       })
-//       .catch(err => {
-//         console.log(err);
-//         res.redirect('/register');
-//       });
-// });
+          res.redirect('/finder');
+        });
+      })
+      .catch(err => {
+        console.log(err);
+        res.redirect('/register');
+      });
+});
 
+// Authentication Middleware.
+const auth = (req, res, next) => {
+    if (!req.session.user) {
+      // Default to login page.
+      return res.redirect('/login');
+    }
+    next();
+};
+  
+app.use(auth);
+
+
+app.get('/finder', (req, res) => {
+    res.render('pages/finder');
+});
 
 
 
