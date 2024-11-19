@@ -1,0 +1,17 @@
+Date: 19 November 2024
+Meeting 4
+
+Decisions:
+  - None
+
+Alternative Actions/Options Discussed:
+  - In the event that we cannot implement a third party image storing software for the database prior to the deadline, 
+    we will create folder containing some demo profile and post images that we can then store the
+    relative path for in the database.
+
+Follow-up items:
+  - Abraham: Before thanksgiving break I will have completed and tested the social/discover page and will hopefully 
+    have also implemented functionality for the user to post their own images.
+  - Ramsey: Before thanksgiving break I will finished implementing the functionality of the profile page. Additionally
+    I will have added a third-party API for the purpose of minimizing storage use of images and for user image upload 
+    capability.
