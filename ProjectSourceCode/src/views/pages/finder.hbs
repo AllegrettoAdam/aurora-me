@@ -1,12 +1,20 @@
-{{!-- TODO: Figure out how we access and store API data --}}
 {{!-- TODO: Do we want to translate coordinates into more specific location info? --}}
+
+{{!-- Note: Boulder's Coordinates are 40.0150, 105.2705 --}}
 
 {{!-- Geolocation API
 navigator.geolocation.getCurrentPosition(); --}}
+
+{{!-- make this required; also add visibility stuff --}}
 <h2>Aurora Finder</h2>
-<form action="/find" method="POST">
-    <label for="location_input" class="form-label">Enter Location Here</label>
-    <input type="text" class="form-control" id="location_input" name="location">
+<form action="/aurora" method="GET">
+    {{!-- TODO: Add input placeholder/preview thingy --}}
+    <label for="latitude_input" class="form-label">Enter Latitude Coordinate Here</label>
+    <input type="text" class="form-control" id="latitude_input" name="latitude" required>
+
+    <label for="longitude_input" class="form-label">Enter Longitude Coordinate Here</label>
+    <input type="text" class="form-control" id="longitude_input" name="longitude" required>
+
     <button id="submit_button" class="btn btn-primary" type="submit">
         Find Aurora
     </button>
@@ -14,17 +22,21 @@ navigator.geolocation.getCurrentPosition(); --}}
 
 {{!-- Note: The Variable Partials are just a placeholder till we figure out API integration --}}
 
+{{!--
+<script>console.log({{ aurora_prob }});</script> --}}
+
 <div id="aurora_direct">
-    <h4>Your Chance of Seeing Aurora: {{aurora_direct-probability}}</h4>
+    <h4>Your Chance of Seeing Aurora: {{aurora_prob}}</h4>
 </div>
 
 <div id="aurora-nearby">
     {{!-- API returns 'the highest probability of seeing an aurora within 9 degrees (approx. 1000km) of your location'
     or about 621 milies--}}
-    <h4>Your Chance of Seeing Aurora Within 600 miles: {{aurora_nearby-probability}}</h4>
+    <h4>Your Chance of Seeing Aurora Within 600 miles: {{nearby_prob}}</h4>
 </div>
 
 <div id="aurora-best">
     {{!-- Note: I'm not sure if the API returns data for what this chance is. --}}
-    <h4>Best Chance of Seeing Aurora: {{aurora_best-location}}</h4>
+    <h4>Best Chance of Seeing Aurora: {{best_prob}}</h4>
+    <h5>Location: Latitude: {{best_lat}}, Longitude: {{best_long}}</h5>
 </div>

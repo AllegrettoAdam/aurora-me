@@ -132,13 +132,43 @@ async function getAuroraData(lat, long) {
     }
 }
 
-
 app.get('/aurora', async (req, res) => {
     try {
-        const auroraData = await getAuroraData(40.7813913, -73.976902);
-        //res.render('pages/aurora', { auroraData });
-        console.log(auroraData);
+        const auroraData = await getAuroraData(req.query.latitude, req.query.longitude);
+        //.then(result => {
+        //    render('finder.hbs', {data: auroraData, title: 'Aurora Information'})
+        // })
+
+        // TODO: Continue manually parsing data like this
+        let aurora_nearby_probability = auroraData.probability.calculated.value;
+        let aurora_probaility = auroraData.probability.value;
+        let aurora_best_probability = auroraData.probability.highest.value;
+        let aurora_best_lat = auroraData.probability.highest.lat;
+        let aurora_best_long = auroraData.probability.highest.long;
+
+        // const Aurora = JSON.parse(auroraData);
+        // res.render('finder.hbs', { Aurora: Aurora, title: 'Aurora Data' });
+
+        // const auroraData = await getAuroraData(40.0150, 105.2705);
+        // res.render('pages/aurora', { auroraData });
+        // res.status(200).json(auroraData);
+        const aurora = {
+            nearby_prob: aurora_nearby_probability,
+            aurora_prob: aurora_probaility,
+            best_prob: aurora_best_probability,
+            best_lat: aurora_best_lat,
+            best_long: aurora_best_long
+        };
+        res.status(200).render('pages/finder.hbs', {
+            nearby_prob: aurora_nearby_probability,
+            aurora_prob: aurora_probaility,
+            best_prob: aurora_best_probability,
+            best_lat: aurora_best_lat,
+            best_long: aurora_best_long
+        });
+
     } catch (error) {
+        console.log(error);
         res.status(500).send('Error retrieving aurora data');
     }
 });
@@ -155,38 +185,38 @@ app.post('/login', (req, res) => {
     const values = [username];
 
     db.one(query, values)
-      .then(data => {
-        bcrypt.compare(password, data.password).then(match => {
-          if (!match) {
-            return res.render('pages/login', { message: 'Incorrect username or password.' });
-          }
+        .then(data => {
+            bcrypt.compare(password, data.password).then(match => {
+                if (!match) {
+                    return res.render('pages/login', { message: 'Incorrect username or password.' });
+                }
 
-          const user = {
-            user_id: data.user_id,
-            username: data.username,
-          };
+                const user = {
+                    user_id: data.user_id,
+                    username: data.username,
+                };
 
-          req.session.user = user;
-          req.session.save();
+                req.session.user = user;
+                req.session.save();
 
-          res.redirect('/finder');
+                res.redirect('/finder');
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.redirect('/register');
         });
-      })
-      .catch(err => {
-        console.log(err);
-        res.redirect('/register');
-      });
 });
 
 // Authentication Middleware.
 const auth = (req, res, next) => {
     if (!req.session.user) {
-      // Default to login page.
-      return res.redirect('/login');
+        // Default to login page.
+        return res.redirect('/login');
     }
     next();
 };
-  
+
 app.use(auth);
 
 
@@ -194,6 +224,28 @@ app.get('/finder', (req, res) => {
     res.render('pages/finder');
 });
 
+// Finder API calls
+
+// Test Call
+// const getData = async () => {
+//     const response = await fetch('http://api.auroras.live/v1/?type=ace&data=bz')
+//     const data = await response.json();
+
+//     return data;
+// };
+
+// getData().then(data => console.log('resolved:', data));
+
+// fetch('http://api.auroras.live/v1/?type=all&lat=40.7813913&long=-73.976902&forecast=false&threeday=false')
+//     .then(response => response.json())
+//     .then(data => console.log(data))
+//     .catch(error => console.error(error));
+
+
+// fetch('http://api.auroras.live/v1/?type=ace&data=bz')
+//     .then(response => response.json())
+//     .then(data => console.log(data))
+//     .catch(error => console.error(error));
 
 
 // *****************************************************
