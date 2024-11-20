@@ -135,23 +135,13 @@ async function getAuroraData(lat, long) {
 app.get('/aurora', async (req, res) => {
     try {
         const auroraData = await getAuroraData(req.query.latitude, req.query.longitude);
-        //.then(result => {
-        //    render('finder.hbs', {data: auroraData, title: 'Aurora Information'})
-        // })
 
-        // TODO: Continue manually parsing data like this
         let aurora_nearby_probability = auroraData.probability.calculated.value;
         let aurora_probaility = auroraData.probability.value;
         let aurora_best_probability = auroraData.probability.highest.value;
         let aurora_best_lat = auroraData.probability.highest.lat;
         let aurora_best_long = auroraData.probability.highest.long;
 
-        // const Aurora = JSON.parse(auroraData);
-        // res.render('finder.hbs', { Aurora: Aurora, title: 'Aurora Data' });
-
-        // const auroraData = await getAuroraData(40.0150, 105.2705);
-        // res.render('pages/aurora', { auroraData });
-        // res.status(200).json(auroraData);
         const aurora = {
             nearby_prob: aurora_nearby_probability,
             aurora_prob: aurora_probaility,

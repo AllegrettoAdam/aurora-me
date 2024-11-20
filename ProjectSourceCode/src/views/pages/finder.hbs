@@ -15,27 +15,37 @@ navigator.geolocation.getCurrentPosition(); --}}
     <label for="longitude_input" class="form-label">Enter Longitude Coordinate Here</label>
     <input type="text" class="form-control" id="longitude_input" name="longitude" required>
 
-    <button id="submit_button" class="btn btn-primary" type="submit">
+    <button id="submit_button" class="btn btn-primary" type="submit" onclick="displayAuroraData()">
         Find Aurora
     </button>
 </form>
 
+<script>
+    function displayAuroraData() {
+        const direct = document.getElementById('aurora_direct');
+        const nearby = document.getElementById('aurora_nearby');
+        const best = document.getElementById('aurora_best');
+        direct.style.display = 'block';
+        nearby.style.display = 'block';
+        best.style.display = 'block';
+    }</script>
+
 {{!-- Note: The Variable Partials are just a placeholder till we figure out API integration --}}
 
 {{!--
-<script>console.log({{ aurora_prob }});</script> --}}
+<script>//console.log({{ aurora_prob }});</script> --}}
 
-<div id="aurora_direct">
+<div id="aurora_direct" style="display: none">
     <h4>Your Chance of Seeing Aurora: {{aurora_prob}}</h4>
 </div>
 
-<div id="aurora-nearby">
+<div id="aurora_nearby" style="display: none">
     {{!-- API returns 'the highest probability of seeing an aurora within 9 degrees (approx. 1000km) of your location'
     or about 621 milies--}}
     <h4>Your Chance of Seeing Aurora Within 600 miles: {{nearby_prob}}</h4>
 </div>
 
-<div id="aurora-best">
+<div id="aurora_best" style="display: none">
     {{!-- Note: I'm not sure if the API returns data for what this chance is. --}}
     <h4>Best Chance of Seeing Aurora: {{best_prob}}</h4>
     <h5>Location: Latitude: {{best_lat}}, Longitude: {{best_long}}</h5>
