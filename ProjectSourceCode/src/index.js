@@ -222,6 +222,11 @@ const auth = (req, res, next) => {
 
 app.use(auth);
 
+app.get('/logout', (req, res) => {
+    req.session.destroy();
+    res.render('pages/logout');
+  });
+
 app.get('/finder', (req, res) => {
     res.render('pages/finder');
 });
