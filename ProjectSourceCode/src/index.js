@@ -88,7 +88,7 @@ app.get('/register', (req, res) => {
 });
 
 app.post('/register', async (req, res) => {
-    const img = "./resources/images/default.png";
+    const img = "../resources/images/default.jpeg";
     const username = req.body.username;
     const email = req.body.email;
     const password = req.body.password;
@@ -173,7 +173,7 @@ app.post('/login', (req, res) => {
 
                 const user = {
                     user_id: data.user_id,
-                    profile_pic: data.profile_pic,
+                    profile_pic: data.img,
                     username: data.username,
                 };
 
