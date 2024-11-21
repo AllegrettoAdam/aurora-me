@@ -99,7 +99,7 @@ app.post('/register', async (req, res) => {
 
         const hash = await bcrypt.hash(password, 10);
 
-        const query = 'INSERT INTO users (username, email, password) VALUES ($1, $2, $3)';
+        const query = 'INSERT INTO users (img, username, email, password) VALUES (./resources/images/default.png, $1, $2, $3)';
         const values = [username, email, hash];
 
         await db.none(query, values);
