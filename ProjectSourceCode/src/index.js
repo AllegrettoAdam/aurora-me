@@ -88,7 +88,7 @@ app.get('/register', (req, res) => {
 });
 
 app.post('/register', async (req, res) => {
-    const img = './resources/images/default.png';
+    const img = "./resources/images/default.png";
     const username = req.body.username;
     const email = req.body.email;
     const password = req.body.password;
@@ -100,7 +100,7 @@ app.post('/register', async (req, res) => {
 
         const hash = await bcrypt.hash(password, 10);
 
-        const query = 'INSERT INTO users (img, username, email, password) VALUES (./resources/images/default.png, $1, $2, $3)';
+        const query = 'INSERT INTO users (img, username, email, password) VALUES ($1, $2, $3, $4)';
         const values = [img, username, email, hash];
 
         await db.none(query, values);
@@ -173,7 +173,7 @@ app.post('/login', (req, res) => {
 
                 const user = {
                     user_id: data.user_id,
-                    profile_pic: req.body.img,
+                    profile_pic: data.profile_pic,
                     username: data.username,
                 };
 
