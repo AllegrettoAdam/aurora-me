@@ -87,16 +87,6 @@ app.get('/register', (req, res) => {
     res.render('pages/register');
 });
 
-
-app.get('/profile', (req, res) => {
-    res.render('pages/profile');
-});
-
-app.get('/social', (req, res) => {
-    res.render('pages/profile');
-});
-
-
 app.post('/register', async (req, res) => {
     const username = req.body.username;
     const email = req.body.email;
@@ -167,7 +157,6 @@ app.get('/login', (req, res) => {
     res.render('pages/login');
 });
 
-
 app.post('/login', (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
@@ -209,9 +198,16 @@ const auth = (req, res, next) => {
 
 app.use(auth);
 
-
 app.get('/finder', (req, res) => {
     res.render('pages/finder');
+});
+
+app.get('/profile', (req, res) => {
+    res.render('pages/profile');
+});
+
+app.get('/social', (req, res) => {
+    res.render('pages/social');
 });
 
 // Finder API calls
@@ -236,7 +232,6 @@ app.get('/finder', (req, res) => {
 //     .then(response => response.json())
 //     .then(data => console.log(data))
 //     .catch(error => console.error(error));
-
 
 // *****************************************************
 // <!-- Section 5 : Start Server-->
