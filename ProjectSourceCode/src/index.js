@@ -93,7 +93,19 @@ app.get('/profile', (req, res) => {
 });
 
 app.get('/social', (req, res) => {
-    res.render('pages/profile');
+    const query = 'SELECT * FROM posts'; 
+    
+    db.any(query)
+        .then(results => {
+            console.log(results);
+            res.render('pages/social', { posts: results });
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(400).send('Error selecting the data from posts');
+        });
+    
+    
 });
 
 
@@ -213,6 +225,12 @@ app.use(auth);
 app.get('/finder', (req, res) => {
     res.render('pages/finder');
 });
+
+ // TODO dont push this
+
+ 
+
+
 
 // Finder API calls
 
