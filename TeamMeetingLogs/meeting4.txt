@@ -15,3 +15,5 @@ Follow-up items:
   - Ramsey: Before thanksgiving break I will finished implementing the functionality of the profile page. Additionally
     I will have added a third-party API for the purpose of minimizing storage use of images and for user image upload 
     capability.
+  -Ulises: Before thanksgiving break I will have added styling to the login and register and assist Abraham if he needs help
+    with the social page.
