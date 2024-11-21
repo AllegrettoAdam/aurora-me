@@ -93,7 +93,7 @@ app.get('/profile', (req, res) => {
 });
 
 app.get('/social', (req, res) => {
-    res.render('pages/profile');
+    res.render('pages/social');
 });
 
 
@@ -236,7 +236,6 @@ app.get('/finder', (req, res) => {
 //     .then(response => response.json())
 //     .then(data => console.log(data))
 //     .catch(error => console.error(error));
-
 
 // *****************************************************
 // <!-- Section 5 : Start Server-->
