@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
-    img VARCHAR(1000),
+    img TEXT,
     username VARCHAR(16) NOT NULL,
     email VARCHAR(40) NOT NUll,
     password VARCHAR(100) NOT NULL
