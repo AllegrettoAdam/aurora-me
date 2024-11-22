@@ -87,6 +87,27 @@ app.get('/register', (req, res) => {
     res.render('pages/register');
 });
 
+
+app.get('/profile', (req, res) => {
+    res.render('pages/profile');
+});
+
+app.get('/social', (req, res) => {
+    const query = 'SELECT * FROM posts'; 
+    
+    db.any(query)
+        .then(results => {
+            console.log(results);
+            res.render('pages/social', { posts: results });
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(400).send('Error selecting the data from posts');
+        });
+    
+    
+});
+
 async function convertToBase64(imagePath) {
     // If no image path provided, use default
     const img = imagePath || './resources/images/default.png';
@@ -231,13 +252,7 @@ app.get('/finder', (req, res) => {
     res.render('pages/finder');
 });
 
-app.get('/profile', (req, res) => {
-    res.render('pages/profile');
-});
 
-app.get('/social', (req, res) => {
-    res.render('pages/social');
-});
 
 // Finder API calls
 
