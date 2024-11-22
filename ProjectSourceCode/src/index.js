@@ -252,21 +252,7 @@ app.get('/finder', (req, res) => {
     res.render('pages/finder');
 });
 
-<<<<<<< HEAD
- // TODO dont push this
 
- 
-
-
-=======
-app.get('/profile', (req, res) => {
-    res.render('pages/profile');
-});
-
-app.get('/social', (req, res) => {
-    res.render('pages/social');
-});
->>>>>>> origin
 
 // Finder API calls
 
