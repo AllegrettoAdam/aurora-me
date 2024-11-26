@@ -56,13 +56,15 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(bodyParser.json()); // specify the usage of JSON for parsing request body.
 
 // initialize session variables
-app.use(
-    session({
-        secret: process.env.SESSION_SECRET,
-        saveUninitialized: false,
-        resave: false,
-    })
-);
+app.use(session({
+    secret: process.env.SESSION_SECRET || 'default_secret',
+    resave: false,
+    saveUninitialized: false,
+    //Wasn;t sure if we needed cookies or not so I included it for now
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24 // 24 hours
+    }
+}));
 
 app.use(
     bodyParser.urlencoded({
@@ -87,9 +89,13 @@ app.get('/register', (req, res) => {
     res.render('pages/register');
 });
 
-
 app.get('/profile', (req, res) => {
-    res.render('pages/profile');
+    if (!req.session.user) {
+        return res.redirect('/login');
+    }
+    res.render('pages/profile', {
+        user: req.session.user
+    });
 });
 
 app.get('/social', (req, res) => {
@@ -201,6 +207,7 @@ app.get('/login', (req, res) => {
     res.render('pages/login');
 });
 
+
 app.post('/login', (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
@@ -214,21 +221,18 @@ app.post('/login', (req, res) => {
                     return res.render('pages/login', { message: 'Incorrect username or password.' });
                 }
 
-                const user = {
-                    user_id: data.user_id,
-                    profile_pic: data.img,
+                req.session.user = {
+                    user_id: data.id,
                     username: data.username,
+                    profile_pic: data.img || "data:image/png;base64,..." // Add default image here if none
                 };
 
-                req.session.user = user;
-                req.session.save();
-
-                res.redirect('/finder');
+                res.redirect('/profile');
             });
         })
         .catch(err => {
             console.log(err);
-            res.redirect('/register');
+            res.render('pages/login', { message: 'Incorrect username or password.' });
         });
 });
 
@@ -248,8 +252,14 @@ app.get('/logout', (req, res) => {
     res.render('pages/logout');
   });
 
+
 app.get('/finder', (req, res) => {
-    res.render('pages/finder');
+    if (!req.session.user) {
+        return res.redirect('/login');
+    }
+    res.render('pages/finder', {
+        user: req.session.user
+    });
 });
 
 
