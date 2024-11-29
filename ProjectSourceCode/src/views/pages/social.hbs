@@ -1,15 +1,38 @@
 <style>
         .container {
             max-width: 800px;
-            margin: 0 auto;
         }
         .profile img {
+            border: 4px double black;
             width: 40px;
             height: 40px;
-            margin-right: 100px;
+            margin-right: 20px;
+            margin-left: 40px;
         }
-        .post img {
-            width: 100%;
+        .profile {
+            margin-left: 25px;
+            margin-top: 15px;
+            border: 1px solid #000000;
+            display: flex; 
+            align-items: center;  
+        }
+        #user {
+            /*spaces username*/
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        #caption {
+            /*spaces caption*/
+            margin-left: 20px;
+            margin-top: 20px;
+        }
+        .post img {   
+            width: 800px;
+            height: 500px; 
+            padding: 10px; 
+        }
+        .post { 
+            margin-bottom: 30px; 
         }
         .footer {
             display: flex;
@@ -18,23 +41,20 @@
         }
 	</style>
 	<body>
-    
-    <div class="container">
+
     {{#each posts}}
+    <div class="container">
         <div class="profile">
-            <!-- Need to learn how to properly do this and access the post's user for their profile image -->
-            <img src="https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg" alt="Profile Picture" alt="Profile Picture"> 
-           
+            <img src={{this.user_img}} alt="Profile Picture" alt="Profile Picture"> 
+           <p id="user">{{this.username}}</p>
+           <p id="caption">{{this.text}}</p>
         </div>
         <div class="post">
-            <img src={{this.img}} alt="Post Image">
+            <img src={{this.post_img}} alt="Post Image">
         </div>
     </div>
     {{/each}}
-    <div class="footer">
-        <div>Finder</div>
-        <div>Profile Picture Temporary</div>
-    </div>
+    
     
     </body>
 

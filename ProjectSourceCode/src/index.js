@@ -119,11 +119,10 @@ app.get('/profile', (req, res) => {
 
 
 app.get('/social', (req, res) => {
-    const query = 'SELECT * FROM posts'; 
+    const query = 'SELECT  posts.img AS post_img, users.img AS user_img, users.username AS username, posts.text AS text FROM posts JOIN users ON posts.user_id = users.id;'; 
     
     db.any(query)
         .then(results => {
-            console.log(results);
             res.render('pages/social', { posts: results });
         })
         .catch(err => {
