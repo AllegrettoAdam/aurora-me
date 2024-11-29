@@ -9,7 +9,7 @@ INSERT INTO users (img, username, email, password) VALUES
 
 -- Insert dummy posts
 INSERT INTO posts (img, text, user_id) VALUES
-('https://sevennaturalwonders.org/wp-content/uploads/2023/11/Aurora-Borealis-with-snow.jpg', 'Amazing aurora display tonight!', 1),
+('https://sevennaturalwonders.org/wp-content/uploads/2023/11/Aurora-Borealis-with-snow.jpg', 'Amazing aurora display tonight!',1),
 ('https://cdn.mos.cms.futurecdn.net/6RUWb9NLBGA8v4oQtDgbAL.jpg', 'Green lights dancing in the sky', 1),
 ('https://images.axios.com/FqNtFyt24VdZ25W6-aylShIcv9U=/332x0:4231x3899/1600x1600/2024/05/11/1715421775198.jpg', 'First time seeing the northern lights!', 2),
 ('https://www.sunset.com/wp-content/uploads/northern-lights-solar-max-aurora-over-trees-unsplash-1023-1200x600.jpg', 'Perfect conditions for aurora viewing', 3),

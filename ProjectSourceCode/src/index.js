@@ -89,14 +89,34 @@ app.get('/register', (req, res) => {
     res.render('pages/register');
 });
 
+
 app.get('/profile', (req, res) => {
     if (!req.session.user) {
         return res.redirect('/login');
     }
-    res.render('pages/profile', {
-        user: req.session.user
-    });
+
+    const query = `
+        SELECT posts.*, users.username 
+        FROM posts 
+        JOIN users ON posts.user_id = users.id 
+        WHERE posts.user_id = $1
+        ORDER BY posts.id DESC`;
+    
+    db.any(query, [req.session.user.user_id])
+        .then(posts => {
+            console.log('Posts for user:', posts); // Debug log
+            res.render('pages/profile', {
+                user: req.session.user,
+                posts: posts,
+                username: req.session.user.username
+            });
+        })
+        .catch(err => {
+            console.error('Database error:', err);
+            res.status(500).send('Error retrieving posts');
+        });
 });
+
 
 app.get('/social', (req, res) => {
     const query = 'SELECT * FROM posts'; 

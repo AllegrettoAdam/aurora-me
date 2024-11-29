@@ -1,3 +1,92 @@
+<style>
+    .profile-container {
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+    }
+
+    .profile-header {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        margin-bottom: 2rem;
+        padding: 1.5rem;
+        background: #f8f9fa;
+        border-radius: 12px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    #profile_picture {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #fff;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+
+    .section-header {
+        background: linear-gradient(to right, #2c3e50, #3498db);
+        color: white;
+        padding: 1rem;
+        border-radius: 8px;
+        margin: 2rem 0;
+    }
+
+    .photo-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1.5rem;
+        padding: 1rem 0;
+    }
+
+    .card {
+        border: none;
+        border-radius: 12px;
+        overflow: hidden;
+        transition: transform 0.2s, box-shadow 0.2s;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .card-img-top {
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .card-body {
+        padding: 1rem;
+        background: white;
+    }
+
+    .card-text {
+        color: #2c3e50;
+        font-size: 0.9rem;
+        margin: 0;
+    }
+
+    .username-text {
+        font-size: 2rem;
+        font-weight: 600;
+        color: #2c3e50;
+        margin: 0;
+    }
+
+    .no-posts {
+        text-align: center;
+        padding: 3rem;
+        color: #6c757d;
+        font-size: 1.2rem;
+    }
+</style>
+
+
+
+
 <!-- profile page should not be accessible unless the user is signed in to their account -->
 <div class="container" style="width: 100%">
     <div class="row justify-content-between mx-2 py-1">
@@ -20,6 +109,21 @@
             <h3>Photos</h3>
         </div>
     </div>
-    <!--TODO: Add dynamic image display of photos from the posts they made -->
-    <!-- for each post made by the user, display the photo attached to it, 4 per row -->
+
+    <!-- In src/views/pages/profile.hbs -->
+<div class="row">
+    {{#if posts.length}}
+        {{#each posts}}
+            <div class="col-md-3 mb-4">
+                <div class="card">
+                    <img src="{{this.img}}" class="card-img-top" alt="Post Image" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <p class="card-text">{{this.text}}</p>
+                    </div>
+                </div>
+            </div>
+        {{/each}}
+    {{else}}
+        <p>No posts yet</p>
+    {{/if}}
 </div>
