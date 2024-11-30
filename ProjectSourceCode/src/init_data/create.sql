@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS users (
 
 CREATE TABLE posts (
     id SERIAL PRIMARY KEY,
-    img VARCHAR(1000),
+    img TEXT,
     text VARCHAR(500),
     user_id BIGINT NOT NULL
 );

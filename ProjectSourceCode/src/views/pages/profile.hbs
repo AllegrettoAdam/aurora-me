@@ -13,7 +13,7 @@
         padding: 1.5rem;
         background: #f8f9fa;
         border-radius: 12px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     #profile_picture {
@@ -22,7 +22,7 @@
         border-radius: 50%;
         object-fit: cover;
         border: 4px solid #fff;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     }
 
     .section-header {
@@ -45,12 +45,12 @@
         border-radius: 12px;
         overflow: hidden;
         transition: transform 0.2s, box-shadow 0.2s;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
     .card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
 
     .card-img-top {
@@ -82,6 +82,8 @@
         color: #6c757d;
         font-size: 1.2rem;
     }
+
+    
 </style>
 
 
@@ -93,37 +95,68 @@
         <div class="col">
             <h1>Profile</h1>
         </div>
-        <div class="col-1">
-        </div>
     </div>
     <hr style="color:rgb(141, 141, 141); height: 2px; background-color:rgb(141, 141, 141);">
     <div class="row justify-content-start mx-2">
-        <img id="profile_picture" src="{{user.profile_pic}}" class="rounded float-end" alt="profile picture" width="60" height="60">
+        <div class="col-auto position-relative">
+            <img id="profile_picture" src="{{user.profile_pic}}" class="rounded" alt="profile picture" width="60" height="60">
+            <button class="btn btn-sm btn-secondary position-absolute" 
+                    style="bottom: 0; right: 0;"
+                    onclick="document.getElementById('profile-pic-input').click()">
+                <i class="bi bi-pencil"></i>
+            </button>
+        </div>
         <div id="username" class="col">
-            <!-- {{username}} partial should print the username of the user -->
             <h2 style="margin-bottom: 1%;">{{username}}</h2>
         </div>
     </div>
+
+    <form id="profile-pic-form" action="/update-profile-pic" method="POST" enctype="multipart/form-data" style="display: none;">
+        <input type="file" id="profile-pic-input" name="image" accept="image/*" onchange="submitProfilePic()">
+    </form>
+</div>
+
+<script>
+function submitProfilePic() {
+    document.getElementById('profile-pic-form').submit();
+}
+</script>
     <div class="row" style="background-color: rgb(134, 134, 134); margin-top: 1%;">
         <div class="col py-2">
             <h3>Photos</h3>
         </div>
     </div>
 
-    <!-- In src/views/pages/profile.hbs -->
-<div class="row">
-    {{#if posts.length}}
+    <div class="row mb-4">
+        <div class="col">
+            <form action="/upload" method="POST" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="image" class="form-label">Upload Photo</label>
+                    <input type="file" class="form-control" id="image" name="image" accept="image/*" required>
+                </div>
+                <div class="mb-3">
+                    <label for="text" class="form-label">Description</label>
+                    <input type="text" class="form-control" id="text" name="text" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Upload Post</button>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="row">
+        {{#if posts.length}}
         {{#each posts}}
-            <div class="col-md-3 mb-4">
-                <div class="card">
-                    <img src="{{this.img}}" class="card-img-top" alt="Post Image" style="height: 200px; object-fit: cover;">
-                    <div class="card-body">
-                        <p class="card-text">{{this.text}}</p>
-                    </div>
+        <div class="col-md-3 mb-4">
+            <div class="card">
+                <img src="{{this.img}}" class="card-img-top" alt="Post Image" style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <p class="card-text">{{this.text}}</p>
                 </div>
             </div>
+        </div>
         {{/each}}
-    {{else}}
+        {{else}}
         <p>No posts yet</p>
-    {{/if}}
-</div>
+        {{/if}}
+    </div>

@@ -118,6 +118,51 @@ app.get('/profile', (req, res) => {
 });
 
 
+const multer = require('multer');
+const upload = multer();
+
+app.post('/upload', upload.single('image'), async (req, res) => {
+    try {
+        const imageBuffer = req.file.buffer;
+        const base64Image = imageBuffer.toString('base64');
+        const mimeType = req.file.mimetype;
+        const base64String = `data:${mimeType};base64,${base64Image}`;
+        
+        const query = 'INSERT INTO posts (img, text, user_id) VALUES ($1, $2, $3)';
+        await db.none(query, [base64String, req.body.text, req.session.user.user_id]);
+        
+        res.redirect('/profile');
+    } catch (error) {
+        console.error('Upload error:', error);
+        res.status(500).send('Error uploading image');
+    }
+});
+
+app.post('/update-profile-pic', upload.single('image'), async (req, res) => {
+    try {
+        if (!req.session.user) {
+            return res.redirect('/login');
+        }
+
+        const imageBuffer = req.file.buffer;
+        const base64Image = imageBuffer.toString('base64');
+        const mimeType = req.file.mimetype;
+        const base64String = `data:${mimeType};base64,${base64Image}`;
+        
+        const query = 'UPDATE users SET img = $1 WHERE id = $2 RETURNING img';
+        const result = await db.one(query, [base64String, req.session.user.user_id]);
+        
+        // Update session with new profile pic
+        req.session.user.profile_pic = result.img;
+        
+        res.redirect('/profile');
+    } catch (error) {
+        console.error('Profile pic upload error:', error);
+        res.status(500).send('Error updating profile picture');
+    }
+});
+
+
 app.get('/social', (req, res) => {
     const query = 'SELECT * FROM posts'; 
     
