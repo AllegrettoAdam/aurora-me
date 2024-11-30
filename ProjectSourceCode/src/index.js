@@ -118,20 +118,20 @@ app.get('/profile', (req, res) => {
 });
 
 
-app.get('/social', (req, res) => {
-    const query = 'SELECT  posts.img AS post_img, users.img AS user_img, users.username AS username, posts.text AS text FROM posts JOIN users ON posts.user_id = users.id;'; 
+// app.get('/social', (req, res) => {
+//     const query = 'SELECT  posts.img AS post_img, users.img AS user_img, users.username AS username, posts.text AS text FROM posts JOIN users ON posts.user_id = users.id;'; 
     
-    db.any(query)
-        .then(results => {
-            res.render('pages/social', { posts: results });
-        })
-        .catch(err => {
-            console.error(err);
-            res.status(400).send('Error selecting the data from posts');
-        });
+//     db.any(query)
+//         .then(results => {
+//             res.render('pages/social', { posts: results });
+//         })
+//         .catch(err => {
+//             console.error(err);
+//             res.status(400).send('Error selecting the data from posts');
+//         });
     
     
-});
+// });
 
 async function convertToBase64(imagePath) {
     // If no image path provided, use default
@@ -279,6 +279,21 @@ app.get('/finder', (req, res) => {
     res.render('pages/finder', {
         user: req.session.user
     });
+});
+
+app.get('/social', (req, res) => {
+    const query = 'SELECT  posts.img AS post_img, users.img AS user_img, users.username AS username, posts.text AS text FROM posts JOIN users ON posts.user_id = users.id;'; 
+    
+    db.any(query)
+        .then(results => {
+            res.render('pages/social', { posts: results });
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(400).send('Error selecting the data from posts');
+        });
+    
+    
 });
 
 
