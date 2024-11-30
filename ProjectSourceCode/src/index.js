@@ -119,7 +119,12 @@ app.get('/profile', (req, res) => {
 
 
 const multer = require('multer');
-const upload = multer();
+const upload = multer({
+    limits: {
+        fileSize: 5 * 1024 * 1024 // 5MB limit
+    }
+});
+
 
 app.post('/upload', upload.single('image'), async (req, res) => {
     try {
@@ -140,8 +145,14 @@ app.post('/upload', upload.single('image'), async (req, res) => {
 
 app.post('/update-profile-pic', upload.single('image'), async (req, res) => {
     try {
-        if (!req.session.user) {
+        // Check if user is logged in
+        if (!req.session?.user) {
             return res.redirect('/login');
+        }
+
+        // Validate file upload
+        if (!req.file) {
+            throw new Error('No file uploaded');
         }
 
         const imageBuffer = req.file.buffer;
@@ -157,28 +168,13 @@ app.post('/update-profile-pic', upload.single('image'), async (req, res) => {
         
         res.redirect('/profile');
     } catch (error) {
-        console.error('Profile pic upload error:', error);
-        res.status(500).send('Error updating profile picture');
+        console.error('Upload error:', error);
+        res.status(500).send('Error uploading profile picture');
     }
 });
 
 
-app.get('/social', (req, res) => {
-    const query = 'SELECT * FROM posts'; 
-// app.get('/social', (req, res) => {
-//     const query = 'SELECT  posts.img AS post_img, users.img AS user_img, users.username AS username, posts.text AS text FROM posts JOIN users ON posts.user_id = users.id;'; 
-    
-//     db.any(query)
-//         .then(results => {
-//             res.render('pages/social', { posts: results });
-//         })
-//         .catch(err => {
-//             console.error(err);
-//             res.status(400).send('Error selecting the data from posts');
-//         });
-    
-    
-// });
+
 
 async function convertToBase64(imagePath) {
     // If no image path provided, use default
@@ -374,3 +370,4 @@ app.get('/social', (req, res) => {
 // starting the server and keeping the connection open to listen for more requests
 module.exports = app.listen(3000); // for testing: module.exports = app.listen(3000); regularly: app.listen(3000)
 console.log('Server is listening on port 3000');
+})();
