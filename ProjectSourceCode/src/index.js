@@ -128,14 +128,17 @@ const upload = multer({
 
 app.post('/upload', upload.single('image'), async (req, res) => {
     try {
+        //take image from the request and convert it to base64
         const imageBuffer = req.file.buffer;
         const base64Image = imageBuffer.toString('base64');
         const mimeType = req.file.mimetype;
         const base64String = `data:${mimeType};base64,${base64Image}`;
         
+        //insert the image into the database
         const query = 'INSERT INTO posts (img, text, user_id) VALUES ($1, $2, $3)';
         await db.none(query, [base64String, req.body.text, req.session.user.user_id]);
         
+        //reload the page to show the new post
         res.redirect('/profile');
     } catch (error) {
         console.error('Upload error:', error);
@@ -370,4 +373,3 @@ app.get('/social', (req, res) => {
 // starting the server and keeping the connection open to listen for more requests
 module.exports = app.listen(3000); // for testing: module.exports = app.listen(3000); regularly: app.listen(3000)
 console.log('Server is listening on port 3000');
-})();
