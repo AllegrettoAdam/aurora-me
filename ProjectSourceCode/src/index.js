@@ -143,7 +143,7 @@ app.post('/upload', upload.single('image'), async (req, res) => {
         //insert the image into the database
         const query = 'INSERT INTO posts (img, text, user_id) VALUES ($1, $2, $3)';
         await db.none(query, [base64String, req.body.text, req.session.user.user_id]);
-        
+
         //reload the page to show the new post
         res.redirect('/profile');
     } catch (error) {
@@ -181,8 +181,6 @@ app.post('/update-profile-pic', upload.single('image'), async (req, res) => {
         res.status(500).send('Error uploading profile picture');
     }
 });
-
-
 
 
 async function convertToBase64(imagePath) {
@@ -334,7 +332,7 @@ app.get('/finder', (req, res) => {
 });
 
 app.get('/social', (req, res) => {
-    const query = 'SELECT  posts.img AS post_img, users.img AS user_img, users.username AS username, posts.text AS text FROM posts JOIN users ON posts.user_id = users.id;'; 
+    const query = 'SELECT  posts.img AS post_img, users.img AS user_img, users.username AS username, posts.text AS text FROM posts JOIN users ON posts.user_id = users.id ORDER BY posts.id DESC;'; 
     
     db.any(query)
         .then(results => {
@@ -344,8 +342,6 @@ app.get('/social', (req, res) => {
             console.error(err);
             res.status(400).send('Error selecting the data from posts');
         });
-    
-    
 });
 
 

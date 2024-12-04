@@ -1,6 +1,11 @@
 <style>
-        .container {
+        .container1{
+            background-color: #fff0f0;
+        }
+        .container2 {
             max-width: 800px;
+            margin: 0 auto;
+            
         }
         .profile img {
             border: 4px double black;
@@ -10,16 +15,18 @@
             margin-left: 40px;
         }
         .profile {
-            margin-left: 25px;
+            margin-right: 5px;
             margin-top: 15px;
             border: 1px solid #000000;
             display: flex; 
             align-items: center;  
+            background-color: #ffffff;
         }
         #user {
             /*spaces username*/
             margin-top: 20px;
             font-weight: bold;
+            text-decoration :underline;
         }
         #caption {
             /*spaces caption*/
@@ -27,6 +34,7 @@
             margin-top: 20px;
         }
         .post img {   
+            
             width: 800px;
             height: 500px; 
             padding: 10px; 
@@ -39,22 +47,49 @@
             justify-content: space-around;
             text-align: center;
         }
+        #post-form {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;  
+        flex-direction: column;
+        background-color: #7d7474;
+        max-width: 400px;
+        margin-left: 650px;
+        text-align: center;
+        }
 	</style>
 	<body>
-
-    {{#each posts}}
-    <div class="container">
-        <div class="profile">
-            <img src={{this.user_img}} alt="Profile Picture" alt="Profile Picture"> 
-           <p id="user">{{this.username}}</p>
-           <p id="caption">{{this.text}}</p>
+        <div class="container1">
+            <div id = "post-form">
+                <div class="row mb-4">
+                    <div class="col">
+                        <form action="/upload" method="POST" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <label for="image" class="form-label">Upload Photo</label>
+                                <input type="file" name="image" accept="image/*" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="text" class="form-label">Description</label>
+                                <input type="text" class="form-control" id="text" name="text" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Upload Post</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        
+            {{#each posts}}
+            <div class="container2">
+                <div class="profile">
+                    <img src={{this.user_img}} alt="Profile Picture" alt="Profile Picture"> 
+                <p id="user">{{this.username}}</p>
+                <p id="caption">{{this.text}}</p>
+                </div>
+                <div class="post">
+                    <img src={{this.post_img}} alt="Post Image">
+                </div>
+            </div>
+            {{/each}}
         </div>
-        <div class="post">
-            <img src={{this.post_img}} alt="Post Image">
-        </div>
-    </div>
-    {{/each}}
-    
-    
     </body>
 
