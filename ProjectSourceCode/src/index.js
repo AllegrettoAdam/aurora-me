@@ -19,6 +19,8 @@ app.use(express.static('src/resources'));
 // <!-- Section 2 : Connect to DB -->
 // *****************************************************
 
+app.use(express.static(__dirname + '/')); // from Write-Up: enables relative paths
+
 // create `ExpressHandlebars` instance and configure the layouts and partials dir.
 const hbs = handlebars.create({
     extname: 'hbs',
