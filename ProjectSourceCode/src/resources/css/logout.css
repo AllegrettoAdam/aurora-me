@@ -1,0 +1,30 @@
+.video-background {
+    position: relative;
+    height: 100vh; 
+    width: 100vw; 
+    overflow: hidden;
+}
+
+.video-background video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    z-index: -1; 
+}
+
+.content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    text-align: center; 
+    z-index: 1; 
+}
+
+.text-shadow {
+    text-shadow: 2px 2px 5px rgba(53, 197, 180, 0.7); 
+}
+

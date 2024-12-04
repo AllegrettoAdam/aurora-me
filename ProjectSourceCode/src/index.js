@@ -12,6 +12,8 @@ const bodyParser = require('body-parser');
 const session = require('express-session'); // To set the session object. To store or access session data, use the `req.session`, which is (generally) serialized as JSON by the store.
 const bcrypt = require('bcryptjs'); //  To hash passwords
 const axios = require('axios'); // To make HTTP requests from our server. We'll learn more about it in Part C.
+app.use(express.static('src/resources'));
+
 
 // *****************************************************
 // <!-- Section 2 : Connect to DB -->
@@ -82,12 +84,16 @@ app.get('/welcome', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-    res.redirect('/login');
+    res.redirect('/home');
 });
 
 app.get('/register', (req, res) => {
     res.render('pages/register');
 });
+
+app.get('/home', (req, res) => {
+    res.render('pages/home');
+})
 
 
 app.get('/profile', (req, res) => {
