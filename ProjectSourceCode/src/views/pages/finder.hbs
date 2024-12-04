@@ -5,48 +5,95 @@
 {{!-- Geolocation API
 navigator.geolocation.getCurrentPosition(); --}}
 
-{{!-- make this required; also add visibility stuff --}}
-<h2>Aurora Finder</h2>
-<form action="/aurora" method="GET">
-    {{!-- TODO: Add input placeholder/preview thingy --}}
-    <label for="latitude_input" class="form-label">Enter Latitude Coordinate Here</label>
-    <input type="text" class="form-control" id="latitude_input" name="latitude" required>
+<head>
+    <link rel="stylesheet" href="/css/finder.css">
+</head>
 
-    <label for="longitude_input" class="form-label">Enter Longitude Coordinate Here</label>
-    <input type="text" class="form-control" id="longitude_input" name="longitude" required>
+<div id="finder-all">
+    <h2>Aurora Finder</h2>
+    <form action="/aurora" method="GET">
+        <label for="latitude_input" class="form-label">Enter Latitude Coordinate Here</label>
+        <input type="text" class="form-control" id="latitude_input" name="latitude" placeholder="40.0150" required>
 
-    <button id="submit_button" class="btn btn-primary" type="submit" onclick="displayAuroraData()">
-        Find Aurora
-    </button>
-</form>
+        <label for="longitude_input" class="form-label">Enter Longitude Coordinate Here</label>
+        <input type="text" class="form-control" id="longitude_input" name="longitude" placeholder="105.2705" required>
 
-<script>
-    function displayAuroraData() {
-        const direct = document.getElementById('aurora_direct');
-        const nearby = document.getElementById('aurora_nearby');
-        const best = document.getElementById('aurora_best');
-        direct.style.display = 'block';
-        nearby.style.display = 'block';
-        best.style.display = 'block';
-    }</script>
+        <button id="submit_button" class="btn btn-primary" type="submit">
+            Find Aurora
+        </button>
+    </form>
 
-{{!-- Note: The Variable Partials are just a placeholder till we figure out API integration --}}
+    {{!-- Note: Both Style.display block/none work as well as style.visibility visible/hidden --}}
 
-{{!--
-<script>//console.log({{ aurora_prob }});</script> --}}
 
-<div id="aurora_direct" style="display: none">
-    <h4>Your Chance of Seeing Aurora: {{aurora_prob}}</h4>
-</div>
+    <script>
+        // Use alongside onclick="return displayAuroraData()" in button tag
+        // This all works on the url w/ data -- but then the button doesn't take us to that url
+        // function displayAuroraData(best_prob) {
+        //     const direct = document.getElementById('aurora_direct');
+        //     const nearby = document.getElementById('aurora_nearby');
+        //     const best = document.getElementById('aurora_best');
+        //     direct.style.visibility = 'visible';
+        //     nearby.style.visibility = 'visible';
+        //     best.style.visibility = 'visible';
+        //     // e.preventDefault(); // w/ e param
+        //     // also, something with iframes somewhere?
+        //     if (best_prob == null) {
+        //         return false;
+        //     }
+        // }
+        // function displayAuroraData() {
+        //    const direct = document.getElementById("aurora_direct");
+        //    const nearby = document.getElementById("aurora_nearby");
+        //    const best = document.getElementById("aurora_best");
 
-<div id="aurora_nearby" style="display: none">
-    {{!-- API returns 'the highest probability of seeing an aurora within 9 degrees (approx. 1000km) of your location'
-    or about 621 milies--}}
-    <h4>Your Chance of Seeing Aurora Within 600 miles: {{nearby_prob}}</h4>
-</div>
+        //    direct.style.visibility = "visible";
+        //    nearby.style.visibility = "visible";
+        //    best.style.visibility = "visible";
+        // }
+        function changeVisibility() {
+            const element = document.getElementById(id);
 
-<div id="aurora_best" style="display: none">
-    {{!-- Note: I'm not sure if the API returns data for what this chance is. --}}
-    <h4>Best Chance of Seeing Aurora: {{best_prob}}</h4>
-    <h5>Location: Latitude: {{best_lat}}, Longitude: {{best_long}}</h5>
+            element.style.visibility = "visible";
+        }
+    </script>
+    <br>
+
+    <h4>This will determine the following:</h4>
+    <ul>
+        <li>
+            <h4>Your Chance of Seeing an Aurora <span id="aurora_direct">{{aurora_prob}}</span></h4>
+        </li>
+        <li>
+            <h4>Your Chance of Seeing an Aurora Within 600 miles <span id="aurora_nearby">{{nearby_prob}}</span>
+            </h4>
+        </li>
+        <li>
+            <h4>Your Best Chance of Seeing an Aurora Anywhere <span id="aurora_best">{{best_prob}}</span><span
+                    id="aurora_best_loc">{{best_lat}}{{best_long}}</span></h4>
+        </li>
+    </ul>
+    {{!-- <div id="aurora_direct"> --}}
+        {{!-- <h4>Your Chance of Seeing an Aurora <span id="aurora_direct" style="visiblity: hidden"
+                onclick="() => {// changeVisibility(" aurora_direct")}">{{aurora_prob}}%</span></h4> --}}
+        {{!--
+    </div> --}}
+
+    {{!-- <div id="aurora_nearby"> --}}
+        {{!-- API returns 'the highest probability of seeing an aurora within 9 degrees (approx. 1000km) of your
+        location'
+        or about 621 milies--}}
+        {{!-- <h4>Your Chance of Seeing an Aurora Within 600 miles <span id="aurora_nearby">{{nearby_prob}}%</span></h4>
+        --}}
+        {{!--
+    </div> --}}
+
+    {{!-- <div id="aurora_best"> --}}
+        {{!-- Note: I'm not sure if the API returns data for what this chance is. --}}
+        {{!-- <h4>Your Best Chance of Seeing an Aurora is <span id="aurora_best">{{best_prob}}%</span> at (<span
+                id="aurora_best_loc">{{best_lat}},{{best_long}}</span>).</h4> --}}
+        {{!-- <h5>The location (latitude, longitude) (<span id="aurora_best_loc">{{best_lat}},{{best_long}}</span>)</h5>
+        --}}
+        {{!--
+    </div> --}}
 </div>

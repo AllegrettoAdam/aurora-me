@@ -1,0 +1,61 @@
+#navbar {
+    background-color: white;
+}
+
+body {
+    background-color: #fff0f0;
+}
+
+.buttons a {
+    text-decoration: none;
+    margin: 1rem;
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    display: inline-block;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.buttons a:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, #2fa18c, #9039ca);
+    color: #fff;
+    border: none;
+    box-shadow: 0 0 10px rgba(255, 127, 80, 0.4);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(45deg, #2dd7b5, #6e2dc9);
+}
+
+.btn-secondary {
+    background: linear-gradient(45deg, #2fa18c, #9039ca);
+    color: #fff;
+    border: none;
+    box-shadow: 0 0 10px rgba(70, 130, 180, 0.4);
+}
+
+.btn-secondary:hover {
+    background: linear-gradient(45deg, #2dd7b5, #6e2dc9);
+}
+
+#aurora_direct {
+    color: blue;
+}
+
+#aurora_nearby {
+    color: blue;
+}
+
+#aurora_best {
+    color: blue;
+}
+
+#aurora_best_loc {
+    color: blue;
+}

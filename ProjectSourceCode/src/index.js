@@ -107,7 +107,7 @@ app.get('/profile', (req, res) => {
         JOIN users ON posts.user_id = users.id 
         WHERE posts.user_id = $1
         ORDER BY posts.id DESC`;
-    
+
     db.any(query, [req.session.user.user_id])
         .then(posts => {
             console.log('Posts for user:', posts); // Debug log
@@ -139,7 +139,7 @@ app.post('/upload', upload.single('image'), async (req, res) => {
         const base64Image = imageBuffer.toString('base64');
         const mimeType = req.file.mimetype;
         const base64String = `data:${mimeType};base64,${base64Image}`;
-        
+
         //insert the image into the database
         const query = 'INSERT INTO posts (img, text, user_id) VALUES ($1, $2, $3)';
         await db.none(query, [base64String, req.body.text, req.session.user.user_id]);
@@ -168,13 +168,13 @@ app.post('/update-profile-pic', upload.single('image'), async (req, res) => {
         const base64Image = imageBuffer.toString('base64');
         const mimeType = req.file.mimetype;
         const base64String = `data:${mimeType};base64,${base64Image}`;
-        
+
         const query = 'UPDATE users SET img = $1 WHERE id = $2 RETURNING img';
         const result = await db.one(query, [base64String, req.session.user.user_id]);
-        
+
         // Update session with new profile pic
         req.session.user.profile_pic = result.img;
-        
+
         res.redirect('/profile');
     } catch (error) {
         console.error('Upload error:', error);
@@ -186,13 +186,13 @@ app.post('/update-profile-pic', upload.single('image'), async (req, res) => {
 async function convertToBase64(imagePath) {
     // If no image path provided, use default
     const img = imagePath || './resources/images/default.png';
-    
+
     try {
         // Handle both local files and URLs
         if (img.startsWith('http')) {
             const response = await axios.get(img, { responseType: 'arraybuffer' });
             const base64 = Buffer.from(response.data, 'binary').toString('base64');
-           return `data:image/jpeg;base64,${base64}`;
+            return `data:image/jpeg;base64,${base64}`;
         } else {
             const data = fs.readFileSync(img);
             const base64 = data.toString('base64');
@@ -245,11 +245,11 @@ app.get('/aurora', async (req, res) => {
     try {
         const auroraData = await getAuroraData(req.query.latitude, req.query.longitude);
 
-        let aurora_nearby_probability = auroraData.probability.calculated.value;
-        let aurora_probaility = auroraData.probability.value;
-        let aurora_best_probability = auroraData.probability.highest.value;
-        let aurora_best_lat = auroraData.probability.highest.lat;
-        let aurora_best_long = auroraData.probability.highest.long;
+        let aurora_nearby_probability = "is " + auroraData.probability.calculated.value + "%.";
+        let aurora_probaility = "is " + auroraData.probability.value + "%.";
+        let aurora_best_probability = "is " + auroraData.probability.highest.value + "% ";
+        let aurora_best_lat = "at the coordinate location (" + auroraData.probability.highest.lat;
+        let aurora_best_long = ", " + auroraData.probability.highest.long + ").";
 
         const aurora = {
             nearby_prob: aurora_nearby_probability,
@@ -258,6 +258,7 @@ app.get('/aurora', async (req, res) => {
             best_lat: aurora_best_lat,
             best_long: aurora_best_long
         };
+        // Try res.send() instead
         res.status(200).render('pages/finder.hbs', {
             nearby_prob: aurora_nearby_probability,
             aurora_prob: aurora_probaility,
@@ -319,7 +320,7 @@ app.use(auth);
 app.get('/logout', (req, res) => {
     req.session.destroy();
     res.render('pages/logout');
-  });
+});
 
 
 app.get('/finder', (req, res) => {
@@ -332,8 +333,8 @@ app.get('/finder', (req, res) => {
 });
 
 app.get('/social', (req, res) => {
-    const query = 'SELECT  posts.img AS post_img, users.img AS user_img, users.username AS username, posts.text AS text FROM posts JOIN users ON posts.user_id = users.id ORDER BY posts.id DESC;'; 
-    
+    const query = 'SELECT  posts.img AS post_img, users.img AS user_img, users.username AS username, posts.text AS text FROM posts JOIN users ON posts.user_id = users.id ORDER BY posts.id DESC;';
+
     db.any(query)
         .then(results => {
             res.render('pages/social', { posts: results });
@@ -343,31 +344,6 @@ app.get('/social', (req, res) => {
             res.status(400).send('Error selecting the data from posts');
         });
 });
-
-
-
-// Finder API calls
-
-// Test Call
-// const getData = async () => {
-//     const response = await fetch('http://api.auroras.live/v1/?type=ace&data=bz')
-//     const data = await response.json();
-
-//     return data;
-// };
-
-// getData().then(data => console.log('resolved:', data));
-
-// fetch('http://api.auroras.live/v1/?type=all&lat=40.7813913&long=-73.976902&forecast=false&threeday=false')
-//     .then(response => response.json())
-//     .then(data => console.log(data))
-//     .catch(error => console.error(error));
-
-
-// fetch('http://api.auroras.live/v1/?type=ace&data=bz')
-//     .then(response => response.json())
-//     .then(data => console.log(data))
-//     .catch(error => console.error(error));
 
 // *****************************************************
 // <!-- Section 5 : Start Server-->

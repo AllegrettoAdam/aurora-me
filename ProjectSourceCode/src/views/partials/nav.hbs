@@ -1,5 +1,5 @@
 <header>
-    <nav class="navbar navbar-expand-sm border-bottom">
+    <nav class="navbar navbar-expand-sm border-bottom" id="navbar">
         <div class="container">
             {{!-- <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbar-collapse" aria-controls="navbar" aria-expanded="false"
@@ -32,8 +32,8 @@
         {{!-- TODO: Figure out how to access user's profile picture --}}
         {{!-- TODO: Do we want (href) references like this or like above? --}}
         <a href="/profile">
-        
-        {{!--Only displayu7 if there is a user--}}
+
+            {{!--Only displayu7 if there is a user--}}
             {{#if user}}
             <img id="profile_picture" class="rounded float-end" src="{{user.profile_pic}}" alt="Profile picture"
                 width="60" height="60">
