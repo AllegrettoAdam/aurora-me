@@ -30,7 +30,7 @@ const hbs = handlebars.create({
 
 // database configuration
 const dbConfig = {
-    host: 'dpg-csvpcgjtq21c73frnd50-a', // the database server
+    host: 'dpg-csvpcgjtq21c73frnd50-a', // the database server use 'db' for the local host
     port: 5432, // the database port
     database: process.env.POSTGRES_DB, // the database name
     user: process.env.POSTGRES_USER, // the user account to connect with
@@ -94,8 +94,17 @@ app.get('/register', (req, res) => {
 });
 
 app.get('/home', (req, res) => {
-    res.render('pages/home');
-})
+    //pass the user to home screen only if it already exists
+    if (!req.session.user) {
+        res.render('pages/home', {
+            user: null
+        });
+    } else {
+        res.render('pages/home', {
+            user: req.session.user
+        });
+    }
+});
 
 
 app.get('/profile', (req, res) => {
