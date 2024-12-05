@@ -124,12 +124,17 @@
             <h2>{{username}}</h2>
         </div>
 
-        {{!-- Hidden Profile Picture Upload Form --}}
-        <form id="profile-pic-form" action="/update-profile-pic" method="POST" enctype="multipart/form-data" style="display: none;">
-            <input type="file" id="profile-pic-input" name="image" accept="image/*" onchange="submitProfilePic()">
-        </form>
-    </div>
+    <form id="profile-pic-form" action="/update-profile-pic" method="POST" enctype="multipart/form-data" style="display: none;">
+        <input type="file" id="profile-pic-input" name="image" accept="image/*" onchange="submitProfilePic()">
+    </form>
+</div>
 
+<script>
+function submitProfilePic() {
+    document.getElementById('profile-pic-form').submit();
+}
+
+</script>
     {{!-- Photo Gallery Section --}}
     <div class="photo-section">
         <div class="photo-header">

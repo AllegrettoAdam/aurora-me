@@ -30,7 +30,7 @@ const hbs = handlebars.create({
 
 // database configuration
 const dbConfig = {
-    host: 'dpg-csvpcgjtq21c73frnd50-a', // the database server
+    host: 'db', // the database server
     port: 5432, // the database port
     database: process.env.POSTGRES_DB, // the database name
     user: process.env.POSTGRES_USER, // the user account to connect with
@@ -127,11 +127,7 @@ app.get('/profile', (req, res) => {
 
 
 const multer = require('multer');
-const upload = multer({
-    limits: {
-        fileSize: 5 * 1024 * 1024 // 5MB limit
-    }
-});
+const upload = multer();
 
 
 app.post('/upload', upload.single('image'), async (req, res) => {
