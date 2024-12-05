@@ -1,76 +1,210 @@
-<head>
-    <link rel="stylesheet" href="../../resources/css/profile.css">
-</head>
-
-<!-- profile page should not be accessible unless the user is signed in to their account -->
-<div class="container" style="width: 100%">
-    <div class="row justify-content-between mx-2 py-1">
-        <div class="col">
-            <h1>Profile</h1>
-        </div>
-    </div>
-    <hr style="color:rgb(141, 141, 141); height: 2px; background-color:rgb(141, 141, 141);">
-    <div class="row justify-content-start mx-2">
-        <div class="col-auto position-relative">
-            <img id="profile_picture" src="{{user.profile_pic}}" class="rounded" alt="profile picture" width="60"
-                height="60">
-            <button class="btn btn-sm btn-secondary position-absolute" style="bottom: 0; right: 0;"
-                onclick="document.getElementById('profile-pic-input').click()">
-                <i class="bi bi-pencil"></i>
-            </button>
-        </div>
-        <div id="username" class="col">
-            <h2 style="margin-bottom: 1%;">{{username}}</h2>
-        </div>
-    </div>
-
-    <form id="profile-pic-form" action="/update-profile-pic" method="POST" enctype="multipart/form-data"
-        style="display: none;">
-        <input type="file" id="profile-pic-input" name="image" accept="image/*" onchange="submitProfilePic()">
-    </form>
-</div>
-
-<script>
-    function submitProfilePic() {
-        document.getElementById('profile-pic-form').submit();
+<style>
+    <style>.profile-container {
+        max-width: 1024px;
+        /* Better for laptop screens */
+        margin: 0 auto;
+        padding: 1.5rem;
     }
-</script>
-<div class="row" style="background-color: rgb(134, 134, 134); margin-top: 1%;">
-    <div class="col py-2">
-        <h3>Photos</h3>
-    </div>
-</div>
 
-<div class="row mb-4">
-    <div class="col">
-        <form action="/upload" method="POST" enctype="multipart/form-data">
-            <div class="mb-3">
-                <label for="image" class="form-label">Upload Photo</label>
-                <input type="file" class="form-control" id="image" name="image" accept="image/*" required>
+    .profile-header {
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .profile-section {
+        background: white;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile-info {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+    }
+
+    #profile_picture {
+        width: 100px;
+        /* Smaller for laptop */
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid #fff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .photo-section {
+        background: #f8f9fa;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .photo-header {
+        text-align: center;
+        margin-bottom: 1.5rem;
+        color: #2c3e50;
+    }
+
+    .upload-form {
+        max-width: 500px;
+        /* Smaller for laptop */
+        margin: 0 auto;
+        padding: 1.5rem;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .posts-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        /* Smaller cards */
+        gap: 1.5rem;
+        padding: 0.75rem;
+    }
+
+    .card {
+        border: none;
+        border-radius: 8px;
+        overflow: hidden;
+        transition: transform 0.2s;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .card:hover {
+        transform: translateY(-3px);
+    }
+
+    .card-img-top {
+        height: 150px;
+        /* Smaller images */
+        object-fit: cover;
+    }
+
+    .card-body {
+        padding: 0.75rem;
+    }
+
+    .btn-edit-profile {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        border-radius: 50%;
+        width: 28px;
+        /* Smaller button */
+        height: 28px;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Responsive font sizes */
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    h3 {
+        font-size: 1.25rem;
+    }
+
+    p {
+        font-size: 0.9rem;
+    }
+</style>
+
+<div class="profile-container">
+    {{!-- Profile Information Section --}}
+    <div class="profile-section">
+        <div class="profile-header">
+            <h1 class="mb-4">Profile</h1>
+        </div>
+
+        {{!-- Profile Picture and Username --}}
+        <div class="profile-info">
+            <div class="position-relative">
+                <img id="profile_picture" src="{{user.profile_pic}}" alt="profile picture">
+                <button class="btn btn-sm btn-secondary btn-edit-profile"
+                    onclick="document.getElementById('profile-pic-input').click()">
+                    <i class="bi bi-pencil"></i>
+                </button>
             </div>
-            <div class="mb-3">
-                <label for="text" class="form-label">Description</label>
-                <input type="text" class="form-control" id="text" name="text" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Upload Post</button>
+            <h2>{{username}}</h2>
+        </div>
+
+        <form id="profile-pic-form" action="/update-profile-pic" method="POST" enctype="multipart/form-data"
+            style="display: none;">
+            <input type="file" id="profile-pic-input" name="image" accept="image/*" onchange="submitProfilePic()">
         </form>
     </div>
-</div>
 
 
-<div class="row">
-    {{#if posts.length}}
-    {{#each posts}}
-    <div class="col-md-3 mb-4">
-        <div class="card">
-            <img src="{{this.img}}" class="card-img-top" alt="Post Image" style="height: 200px; object-fit: cover;">
-            <div class="card-body">
-                <p class="card-text">{{this.text}}</p>
+
+    <script>
+        //function to submit the profile picture
+        async function submitProfilePic() {
+            const form = document.getElementById('profile-pic-form');
+            const formData = new FormData(form);
+
+            try {
+                await fetch('/update-profile-pic', {
+                    method: 'POST',
+                    body: formData
+                });
+                window.location.href = '/profile'; // Redirect after successful upload
+            } catch (error) {
+                console.error('Upload failed:', error);
+            }
+        }
+
+    </script>
+    {{!-- Photo Gallery Section --}}
+    <div class="photo-section">
+        <div class="photo-header">
+            <h3>Photos</h3>
+        </div>
+
+        {{!-- Photo Upload Form --}}
+        <div class="upload-form">
+            <form action="/upload" method="POST" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="image" class="form-label">Upload Photo</label>
+                    <input type="file" class="form-control" id="image" name="image" accept="image/*" required>
+                </div>
+                <div class="mb-3">
+                    <label for="text" class="form-label">Description</label>
+                    <input type="text" class="form-control" id="text" name="text" required>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Upload Post</button>
+                </div>
+            </form>
+        </div>
+
+        {{!-- Photo Posts Grid --}}
+        <div class="posts-grid mt-4">
+            {{!-- Conditional rendering of posts --}}
+            {{#if posts.length}}
+            {{#each posts}}
+            <div class="card">
+                <img src="{{this.img}}" class="card-img-top" alt="Post Image" style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <p class="card-text">{{this.text}}</p>
+                </div>
             </div>
+            {{/each}}
+            {{else}}
+            <p class="text-center text-muted">No posts yet</p>
+            {{/if}}
         </div>
     </div>
-    {{/each}}
-    {{else}}
-    <p>No posts yet</p>
-    {{/if}}
 </div>

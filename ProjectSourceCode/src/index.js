@@ -127,11 +127,7 @@ app.get('/profile', (req, res) => {
 
 
 const multer = require('multer');
-const upload = multer({
-    limits: {
-        fileSize: 5 * 1024 * 1024 // 5MB limit
-    }
-});
+const upload = multer();
 
 
 app.post('/upload', upload.single('image'), async (req, res) => {
@@ -152,6 +148,11 @@ app.post('/upload', upload.single('image'), async (req, res) => {
         console.error('Upload error:', error);
         res.status(500).send('Error uploading image');
     }
+});
+
+
+app.get('/update-profile-pic', (req, res) => {
+    res.redirect('/profile'); // Redirect GET requests to profile page (Onrender issue)
 });
 
 app.post('/update-profile-pic', upload.single('image'), async (req, res) => {
