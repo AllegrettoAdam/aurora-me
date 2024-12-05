@@ -1,7 +1,7 @@
 <style>
-    <style>
-    .profile-container {
-        max-width: 1024px; /* Better for laptop screens */
+    <style>.profile-container {
+        max-width: 1024px;
+        /* Better for laptop screens */
         margin: 0 auto;
         padding: 1.5rem;
     }
@@ -16,7 +16,7 @@
         border-radius: 12px;
         padding: 1.5rem;
         margin-bottom: 1.5rem;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
 
     .profile-info {
@@ -28,12 +28,13 @@
     }
 
     #profile_picture {
-        width: 100px; /* Smaller for laptop */
+        width: 100px;
+        /* Smaller for laptop */
         height: 100px;
         border-radius: 50%;
         object-fit: cover;
         border: 3px solid #fff;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     }
 
     .photo-section {
@@ -50,17 +51,19 @@
     }
 
     .upload-form {
-        max-width: 500px; /* Smaller for laptop */
+        max-width: 500px;
+        /* Smaller for laptop */
         margin: 0 auto;
         padding: 1.5rem;
         background: white;
         border-radius: 8px;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     }
 
     .posts-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Smaller cards */
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        /* Smaller cards */
         gap: 1.5rem;
         padding: 0.75rem;
     }
@@ -70,7 +73,7 @@
         border-radius: 8px;
         overflow: hidden;
         transition: transform 0.2s;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
     .card:hover {
@@ -78,7 +81,8 @@
     }
 
     .card-img-top {
-        height: 150px; /* Smaller images */
+        height: 150px;
+        /* Smaller images */
         object-fit: cover;
     }
 
@@ -91,7 +95,8 @@
         bottom: 0;
         right: 0;
         border-radius: 50%;
-        width: 28px; /* Smaller button */
+        width: 28px;
+        /* Smaller button */
         height: 28px;
         padding: 0;
         display: flex;
@@ -100,41 +105,68 @@
     }
 
     /* Responsive font sizes */
-    h1 { font-size: 1.75rem; }
-    h2 { font-size: 1.5rem; }
-    h3 { font-size: 1.25rem; }
-    p { font-size: 0.9rem; }
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    h3 {
+        font-size: 1.25rem;
+    }
+
+    p {
+        font-size: 0.9rem;
+    }
 </style>
 
 <div class="profile-container">
-{{!-- Profile Information Section --}}
+    {{!-- Profile Information Section --}}
     <div class="profile-section">
         <div class="profile-header">
             <h1 class="mb-4">Profile</h1>
         </div>
-        
+
         {{!-- Profile Picture and Username --}}
         <div class="profile-info">
             <div class="position-relative">
                 <img id="profile_picture" src="{{user.profile_pic}}" alt="profile picture">
-                <button class="btn btn-sm btn-secondary btn-edit-profile" onclick="document.getElementById('profile-pic-input').click()">
+                <button class="btn btn-sm btn-secondary btn-edit-profile"
+                    onclick="document.getElementById('profile-pic-input').click()">
                     <i class="bi bi-pencil"></i>
                 </button>
             </div>
             <h2>{{username}}</h2>
         </div>
 
-    <form id="profile-pic-form" action="/update-profile-pic" method="POST" enctype="multipart/form-data" style="display: none;">
-        <input type="file" id="profile-pic-input" name="image" accept="image/*" onchange="submitProfilePic()">
-    </form>
-</div>
+        <form id="profile-pic-form" action="/update-profile-pic" method="POST" enctype="multipart/form-data"
+            style="display: none;">
+            <input type="file" id="profile-pic-input" name="image" accept="image/*" onchange="submitProfilePic()">
+        </form>
+    </div>
 
-<script>
-function submitProfilePic() {
-    document.getElementById('profile-pic-form').submit();
-}
 
-</script>
+
+    <script>
+        //function to submit the profile picture
+        async function submitProfilePic() {
+            const form = document.getElementById('profile-pic-form');
+            const formData = new FormData(form);
+
+            try {
+                await fetch('/update-profile-pic', {
+                    method: 'POST',
+                    body: formData
+                });
+                window.location.href = '/profile'; // Redirect after successful upload
+            } catch (error) {
+                console.error('Upload failed:', error);
+            }
+        }
+
+    </script>
     {{!-- Photo Gallery Section --}}
     <div class="photo-section">
         <div class="photo-header">
@@ -162,16 +194,16 @@ function submitProfilePic() {
         <div class="posts-grid mt-4">
             {{!-- Conditional rendering of posts --}}
             {{#if posts.length}}
-                {{#each posts}}
-                    <div class="card">
-                        <img src="{{this.img}}" class="card-img-top" alt="Post Image" style="height: 200px; object-fit: cover;">
-                        <div class="card-body">
-                            <p class="card-text">{{this.text}}</p>
-                        </div>
-                    </div>
-                {{/each}}
+            {{#each posts}}
+            <div class="card">
+                <img src="{{this.img}}" class="card-img-top" alt="Post Image" style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <p class="card-text">{{this.text}}</p>
+                </div>
+            </div>
+            {{/each}}
             {{else}}
-                <p class="text-center text-muted">No posts yet</p>
+            <p class="text-center text-muted">No posts yet</p>
             {{/if}}
         </div>
     </div>

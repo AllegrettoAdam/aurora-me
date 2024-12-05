@@ -150,6 +150,11 @@ app.post('/upload', upload.single('image'), async (req, res) => {
     }
 });
 
+
+app.get('/update-profile-pic', (req, res) => {
+    res.redirect('/profile'); // Redirect GET requests to profile page (Onrender issue)
+});
+
 app.post('/update-profile-pic', upload.single('image'), async (req, res) => {
     try {
         // Check if user is logged in
