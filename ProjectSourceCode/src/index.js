@@ -197,7 +197,7 @@ app.post('/update-profile-pic', upload.single('image'), async (req, res) => {
 
 async function convertToBase64(imagePath) {
     // If no image path provided, use default
-    const img = imagePath || './resources/images/default.png';
+    const img = imagePath || './resources/images/default.jpeg';
 
     try {
         // Handle both local files and URLs
