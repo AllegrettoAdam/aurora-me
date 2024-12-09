@@ -30,7 +30,7 @@ const hbs = handlebars.create({
 
 // database configuration
 const dbConfig = {
-    host: 'dpg-csvpcgjtq21c73frnd50-a', // the database server use 'db' for the local host
+    host: 'db', // the database server use 'db' for the local host
     port: 5432, // the database port
     database: process.env.POSTGRES_DB, // the database name
     user: process.env.POSTGRES_USER, // the user account to connect with
@@ -361,5 +361,11 @@ app.get('/social', (req, res) => {
 // <!-- Section 5 : Start Server-->
 // *****************************************************
 // starting the server and keeping the connection open to listen for more requests
-module.exports = app.listen(3000); // for testing: module.exports = app.listen(3000); regularly: app.listen(3000)
+// Only start server if file is run directly
+// In index.js
+if (require.main === module) {
+    const port = process.env.PORT || 3000;
+    app.listen(port);
+  }
+  module.exports = app;
 console.log('Server is listening on port 3000');
