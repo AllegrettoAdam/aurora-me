@@ -30,7 +30,7 @@ const hbs = handlebars.create({
 
 // database configuration
 const dbConfig = {
-    host: 'db', // the database server use 'db' for the local host
+    host: 'dpg-csvpcgjtq21c73frnd50-a', // the database server use 'db' for the local host
     port: 5432, // the database port
     database: process.env.POSTGRES_DB, // the database name
     user: process.env.POSTGRES_USER, // the user account to connect with
@@ -366,6 +366,6 @@ app.get('/social', (req, res) => {
 if (require.main === module) {
     const port = process.env.PORT || 3000;
     app.listen(port);
-  }
-  module.exports = app;
+}
+module.exports = app;
 console.log('Server is listening on port 3000');
