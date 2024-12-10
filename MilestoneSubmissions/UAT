@@ -217,7 +217,38 @@ Test data stored locally
 Simulated API responses where necessary
 This test plan includes step-by-step user actions, test data, expected results, and invalid results for each feature to ensure comprehensive testing of the application.
 
+Feature 4: Profile Management
+
+Test Case: Changing the Profile Picture
+
+User L does:
+
+Log in with:
+Email: userL@example.com
+Password: ChangePic987
+Navigate to the "My Profile" page.
+Click the "Edit Profile" or "Change Picture" button.
+Click "Choose File" and select a new profile image: profile_new.jpg (valid image file).
+Click "Save" or "Update Profile" button.
+Test Data:
+
+User Credentials: userL@example.com / ChangePic987
+New Profile Image: profile_new.jpg
+Format: JPEG
+Dimensions: 500x500 pixels
+File Size: 1 MB
+Expected Result:
+
+The profile picture updates to display the newly selected image.
+A confirmation message appears: "Your profile picture has been updated."
+Invalid Result:
+
+The profile picture does not change after the update.
+No confirmation message is displayed.
+The application shows an error without a clear explanation.
+
 Summary
 Feature 1: Tested user registration and login with specific credentials to verify authentication processes.
 Feature 2: Ensured the aurora map displays accurate, real-time data and handles errors gracefully.
 Feature 3: Verified that users can upload valid images, prevented invalid file uploads, and allowed user interactions with photos.
+Feature 4: Made sure a user can change the profile picture.
